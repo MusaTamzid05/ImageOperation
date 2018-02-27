@@ -1,8 +1,8 @@
 from tkinter import filedialog
 from tkinter import messagebox
-from tkinter import Tk
 from tkinter import Label
 from tkinter import CENTER
+
 
 from tkinter import Toplevel
 
@@ -30,16 +30,36 @@ def drawer_callback():
 
     cordinates = []
 
-    def get_image_cordinates(image_path):
+
+    def draw_image_cordinates(image_path):
 
         root = Toplevel()
         root.title("Click two points")
-        #image = PhotoImage(file = image_path)
 
-        image = ImageTk.PhotoImage(Image.open(image_path))
+
+        def mouse_handler(event):
+
+            cordinates.append((event.x , event.y))
+
+            if len(cordinates) == 2:
+                draw_rect_on(image_path, cordinates)
+                root.destroy()
+
+
+
+        root.bind("<Button-1>" , mouse_handler)
+        image_data =  Image.open(image_path)
+        image = ImageTk.PhotoImage(image_data)
         w1 = Label(root , compound = CENTER, image = image).pack()
 
         root.mainloop()
 
-    get_image_cordinates(input_file)
 
+    draw_image_cordinates(input_file)
+
+
+
+def draw_rect_on(image_path , cordinates):
+
+    for cordinate in cordinates:
+        print(cordinate)
