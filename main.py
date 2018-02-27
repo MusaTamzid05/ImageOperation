@@ -7,15 +7,20 @@ from image_cropper import cropper_callback
 from image_drawer import drawer_callback
 from logo_callback import  image_logo_callback
 
+
+
 def main():
+
+
 
     callbacks = {}
 
-    # add the callbacks here.
+    #add the callbacks here.
     callbacks["Draw on image"]  = drawer_callback
     callbacks["Crop Image" ]  =  cropper_callback
     callbacks["Add logo"]  = image_logo_callback
 
+    root = Tk()
 
     # we want the row size to be little bit
     # bigger that the number of button out
@@ -23,7 +28,6 @@ def main():
     # to achive this.
 
     row_size = (len(callbacks) * 10) + 100
-    root = Tk()
     root.title("Image Pro 1 tail")
     root.geometry("800x" + str(row_size))
     parent = Frame(root)
