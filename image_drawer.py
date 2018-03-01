@@ -9,8 +9,16 @@ from tkinter import Toplevel
 
 from PIL import Image
 from PIL import ImageTk
+from PIL import ImageDraw
+
+from helper import get_new_name
 
 
+'''
+If you want to change the color of the rectangle
+check the draw_rect_on function and change the
+outline paremeter in ImageDraw inside it.
+'''
 def is_valid_image(path):
 
     valid_ext = [ "jpg" , "png" , "jpg" ]
@@ -50,7 +58,7 @@ def drawer_callback():
         root.bind("<Button-1>" , mouse_handler)
         image_data =  Image.open(image_path)
         image = ImageTk.PhotoImage(image_data)
-        w1 = Label(root , compound = CENTER, image = image).pack()
+        Label(root , compound = CENTER, image = image).pack()
 
         root.mainloop()
 
@@ -61,5 +69,21 @@ def drawer_callback():
 
 def draw_rect_on(image_path , cordinates):
 
-    for cordinate in cordinates:
-        print(cordinate)
+    try:
+
+        image = Image.open(image_path)
+
+    except FileNotFoundError as e:
+        messagebox.showerror(title = "Wrong image" , message = "{} path is not a valid image path.".format(image_path))
+        return
+
+    x1 , y1 = cordinates[0][0] , cordinates[0][1]
+    x2, y2=  cordinates[1][0] , cordinates[1][1]
+
+    draw_image = ImageDraw.Draw(image)
+    draw_image.rectangle((x1 , y1  , x2 , y2) , outline = "black" )
+
+    new_name =  get_new_name(image_path , "drawn")
+    image.save(new_name)
+    messagebox.showinfo(title = "Successful" , message = "Image saved as {}".format(new_name))
+
