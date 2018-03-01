@@ -37,6 +37,10 @@ def ask_user_for_path():
 
     input_file =  filedialog.askopenfilename()
 
+    if input_file == "":
+        return None
+
+
     if is_valid_image(input_file) == False:
         messagebox.showerror(title = "Wrong image" , message = "Image not supported.")
         return None

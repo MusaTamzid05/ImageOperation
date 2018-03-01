@@ -5,7 +5,6 @@ from tkinter import Frame
 
 from image_cropper import cropper_callback
 from image_drawer import drawer_callback
-from logo_callback import  image_logo_callback
 
 
 
@@ -16,9 +15,8 @@ def main():
     callbacks = {}
 
     #add the callbacks here.
-    callbacks["Draw on image"]  = drawer_callback
+    callbacks["Draw reactangle on image"]  = drawer_callback
     callbacks["Crop Image" ]  =  cropper_callback
-    callbacks["Add logo"]  = image_logo_callback
 
     root = Tk()
 
